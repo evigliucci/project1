@@ -3,69 +3,88 @@
 
 <head>
     <Title>TrailTales</Title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!--RESET-->
+    <link rel="stylesheet" href="css/reset.css">
+    <!--BOOTSTRAP-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--GOOGLE FONTS-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icon Library -->
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <!--CUSTOM-->
     <link rel="stylesheet" href="css/trailTails.css">
-<!-- Font Awesome Icon Library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/95c8a755bf.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    
 </head>
 
 <body>
     <section class="hero">
         <h1>Trail Tails</h1>
         <article>
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor erat vitae posuere tincidunt. Aenean sit amet ex sit amet ligula condimentum cursus. </h2>
+            <h2>Explore the most popular trails near you with trail selections that all allow <strong>Dogs!</strong> Get driving directions, current trail conditions and check weather conditions.</h2>
             <div id="hero-form" class="hero-form">
                 <!-- contains header & jumbotron img -->
                 <!-- needs a form with 3 drop down boxes & a button -->
 
-                
-                <a class="geo-locate" href="javascript:void(0)" onclick="getLocation()">Use my current location</a>
-                <input class="location" type="text" value="City, State">
-                
-                <form id="userOption">
-                    <label for="radius">Radius:</label>
-                    <select id="radius" class=“radius”>
-                        <option value="10">10 Miles</option>
-                        <option value="20">20 Miles</option>
-                        <option selected value="30">30 Miles</option>
-                        <option value="40">40 Miles</option>
-                        <option value="50">50 Miles</option>
-                    </select>
-                    <label for="minTrailLength">Min. Length of Trail:</label>
-                    <select id="minTrailLength" class=“minTrailLength”>
-                        <!-- May want to change value to make it easier to send to API -->
-                        <option selected value="0">No Minimum</option>
-                        <option value=“1”>1 Miles</option>
-                        <option value="5">5 Miles</option>
-                    </select>
-                    <!--Javascript function to check if clicked and save option-->
-                    <label for="avgRating">Average Rating:</label>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-
-                    <button type="submit">Let's Go</button>
+                <form id="userOptions">
+                    <fieldset>
+                        <a class="geo-locate" href="javascript:void(0)" onclick="getLocation()"><i class="fas fa-map-marker-alt"></i>Use my current location</a>
+                    </fieldset>
+                    <fieldset>
+                        <input class="location" type="text" placeholder="City, State">
+                    </fieldset>
+                    <div class="form-wrap">
+                        <fieldset>
+                            <label for="radius">Radius:</label>
+                            <div class="select">
+                                <select id="radius" class="radius">
+                                <option value="10">10 Miles</option>
+                                <option value="20">20 Miles</option>
+                                <option selected value="30">30 Miles</option>
+                                <option value="40">40 Miles</option>
+                                <option value="50">50 Miles</option>
+                            </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <label for="minTrailLength">Min. Length of Trail:</label>
+                            <div class="select">
+                                <select id="minTrailLength" class="select minTrailLength">
+                                <!-- May want to change value to make it easier to send to API -->
+                                <option selected value="0">No Minimum</option>
+                                <option value="1">1 Miles</option>
+                                <option value="5">5 Miles</option>
+                            </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <!--Javascript function to check if clicked and save option-->
+                            <label for="avgRating">Average Rating:</label>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                        </fieldset>
+                        <fieldset>
+                            <button type="submit" class="submit">Let's Go</button>
+                        </fieldset>
+                    </div>
                 </form>
 
             </div>
         </article>
     </section>
 
-    <hr />
     <div id=“trailList”>
         <!-- this area should contain our appended trail info & trail img -->
-        <!--                                                                                      -->
 
         <div class="card" style="width: 18rem;">
-            
+
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -78,17 +97,18 @@
     </div>
     <div id="selectedTrail">
         <!-- this area should contain our appended selected trail -->
-        <!--                                                                                      -->
     </div>
     <div id=“mapImage”>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d48917.77764128909!2d-105.31666683723653!3d39.97803494313346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d39.97869!2d-105.27547299999999!5e0!3m2!1sen!2sus!4v1585271521173!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d48917.77764128909!2d-105.31666683723653!3d39.97803494313346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d39.97869!2d-105.27547299999999!5e0!3m2!1sen!2sus!4v1585271521173!5m2!1sen!2sus"
+            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </div>
     <div id=“currentWeather”>
         <!-- section of page will contain current weather information -->
         <!-- may need a button -->
         <!-- temp & condition -->
     </div>
-   
+
 </body>
 <script type="text/javascript" src="js/trailTails.js"></script>
+
 </html>

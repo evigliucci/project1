@@ -1,31 +1,197 @@
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
- #map {
-    height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-
-  .hero{
-    background: url('../assets/images/dog-hiking.jpg');
-    background-size: cover;
-    display:flex;
-    padding: 24px;
-  }
-  .hero h1{
-    width: 66%;
-  }
-.hero article{
-  width: 33%;
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #193441;
 }
- 
 
-  .hero .hero-form{
-    background: #fff;
-    
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.hero {
+  background: url("../assets/images/dog-hiking.jpg");
+  background-size: cover;
+  padding: 24px;
+  height: 100vh;
+  position: relative;
+}
+
+.hero h1 {
+  width: 66%;
+  color: #fff;
+  font-size: 84px;
+  padding: 24px;
+}
+
+.hero h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.hero article {
+  width: 33%;
+  position: absolute;
+  right: 100px;
+  top: 25%;
+}
+
+.hero .hero-form {
+  background: #fff;
+  padding: 24px;
+}
+
+#userOptions {
+  /* Reset Select */
+  /* Custom Select */
+  /* Arrow */
+  /* Transition */
+}
+
+#userOptions fieldset {
+  padding: 0 0 5px;
+}
+
+#userOptions label {
+  display: block;
+  margin: .5rem 0 0;
+}
+
+#userOptions .geo-locate {
+  color: #000;
+  text-decoration: underline;
+}
+
+#userOptions .geo-locate:hover {
+  color: #91aab4;
+}
+
+#userOptions .geo-locate i {
+  padding-right: 10px;
+}
+
+#userOptions .location {
+  padding: 10px;
+  width: 100%;
+  border-radius: .25em;
+  border: 1px solid;
+  height: 3em;
+}
+
+#userOptions .form-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+#userOptions .form-wrap fieldset {
+  width: 48%;
+}
+
+#userOptions .form-wrap fieldset:first-child, #userOptions .form-wrap fieldset:nth-child(3) {
+  margin-right: 4%;
+}
+
+#userOptions .form-wrap fieldset:nth-child(3) {
+  margin-top: 20px;
+}
+
+#userOptions .form-wrap fieldset:nth-child(3) label {
+  margin: 0;
+}
+
+#userOptions select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 0 !important;
+  background: #fff;
+  background-image: none;
+}
+
+#userOptions .select {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 3em;
+  line-height: 3;
+  background: #fff;
+  border: 1px solid #193441;
+  overflow: hidden;
+  border-radius: .25em;
+}
+
+#userOptions select {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 0 .5em;
+  color: #193441;
+  cursor: pointer;
+}
+
+#userOptions .select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: none;
+  color: #193441;
+  border-left: 1px solid #193441;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  transition: .25s all ease;
+}
+
+#userOptions .select:hover::after {
+  color: #91aab4;
+}
+
+#userOptions .fa-star {
+  color: #91aab4;
+  font-size: 18px;
+}
+
+#userOptions .fa-star:hover, #userOptions .fa-star.checked {
+  color: #193441;
+  cursor: pointer;
+}
+
+#userOptions .submit {
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 3em;
+  border: 1px solid;
+  border-radius: .25em;
+  color: #fff;
+  background: #193441;
+  margin-top: 20px;
+}
+
+#userOptions .submit:hover {
+  background: #91aab4;
+}
+/*# sourceMappingURL=trailTails.css.map */

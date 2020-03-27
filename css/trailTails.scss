@@ -1,0 +1,167 @@
+$blue-darker:#193441;
+$blue-dark:#3e606f;
+$blue-medium:#91aab4;
+$blue-light:#cbdbd7;
+$blue-lighter:#cbedf5;
+body {
+    font-family: 'Roboto', sans-serif;
+    color: $blue-darker;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.hero {
+    background: url('../assets/images/dog-hiking.jpg');
+    background-size: cover;
+    padding: 24px;
+    height: 100vh;
+    position: relative;
+    h1 {
+        width: 66%;
+        color: #fff;
+        font-size: 84px;
+        padding: 24px;
+    }
+    h2 {
+        font-size: 32px;
+        margin-bottom: 24px;
+        font-weight: 500;
+        color: #fff;
+    }
+    article {
+        width: 33%;
+        position: absolute;
+        right: 100px;
+        top: 25%;
+    }
+    .hero-form {
+        background: #fff;
+        padding: 24px;
+    }
+}
+
+#userOptions {
+    fieldset {
+        padding: 0 0 5px;
+    }
+    label {
+        display: block;
+        margin: .5rem 0 0;
+    }
+    .geo-locate {
+        color: #000;
+        text-decoration: underline;
+        &:hover {
+            color: $blue-medium;
+        }
+        i {
+            padding-right: 10px;
+        }
+    }
+    .location {
+        padding: 10px;
+        width: 100%;
+        border-radius: .25em;
+        border: 1px solid;
+        height: 3em;
+    }
+    .form-wrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        fieldset {
+            width: 48%;
+            &:first-child,
+            &:nth-child(3) {
+                margin-right: 4%;
+            }
+            &:nth-child(3) {
+                margin-top: 20px;
+                label {
+                    margin: 0;
+                }
+            }
+        }
+    }
+    /* Reset Select */
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        outline: 0;
+        box-shadow: none;
+        border: 0 !important;
+        background: #fff;
+        background-image: none;
+    }
+    /* Custom Select */
+    .select {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 3em;
+        line-height: 3;
+        background: #fff;
+        border: 1px solid $blue-darker;
+        overflow: hidden;
+        border-radius: .25em;
+    }
+    select {
+        flex: 1;
+        padding: 0 .5em;
+        color: $blue-darker;
+        cursor: pointer;
+    }
+    /* Arrow */
+    .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 1em;
+        background: none;
+        color: $blue-darker;
+        border-left: 1px solid $blue-darker;
+        cursor: pointer;
+        pointer-events: none;
+        -webkit-transition: .25s all ease;
+        -o-transition: .25s all ease;
+        transition: .25s all ease;
+    }
+    /* Transition */
+    .select:hover::after {
+        color: $blue-medium;
+    }
+    .fa-star {
+        color: $blue-medium;
+        font-size: 18px;
+        &:hover,
+        &.checked {
+            color: $blue-darker;
+            cursor: pointer;
+        }
+    }
+    .submit {
+        -webkit-appearance: none;
+        width: 100%;
+        min-height: 3em;
+        border: 1px solid;
+        border-radius: .25em;
+        color: #fff;
+        background: $blue-darker;
+        margin-top: 20px;
+        &:hover {
+            background: $blue-medium;
+        }
+    }
+}
