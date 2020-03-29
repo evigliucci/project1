@@ -1,6 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
-  color: #193441;
+  color: #3C5148;
 }
 
 h1,
@@ -14,7 +14,7 @@ h6 {
 }
 
 .hero {
-  background: url("../assets/images/dog-hiking.jpg");
+  background: url("../assets/images/dog-1.jpg");
   background-size: cover;
   padding: 24px;
   height: 100vh;
@@ -39,7 +39,7 @@ h6 {
   width: 33%;
   position: absolute;
   right: 100px;
-  top: 25%;
+  bottom: 10%;
 }
 
 .hero .hero-form {
@@ -69,7 +69,7 @@ h6 {
 }
 
 #userOptions .geo-locate:hover {
-  color: #91aab4;
+  color: #587769;
 }
 
 #userOptions .geo-locate i {
@@ -137,7 +137,7 @@ h6 {
   height: 3em;
   line-height: 3;
   background: #fff;
-  border: 1px solid #193441;
+  border: 1px solid #3C5148;
   overflow: hidden;
   border-radius: .25em;
 }
@@ -147,7 +147,7 @@ h6 {
       -ms-flex: 1;
           flex: 1;
   padding: 0 .5em;
-  color: #193441;
+  color: #3C5148;
   cursor: pointer;
 }
 
@@ -158,8 +158,8 @@ h6 {
   right: 0;
   padding: 0 1em;
   background: none;
-  color: #193441;
-  border-left: 1px solid #193441;
+  color: #3C5148;
+  border-left: 1px solid #3C5148;
   cursor: pointer;
   pointer-events: none;
   -webkit-transition: .25s all ease;
@@ -167,16 +167,16 @@ h6 {
 }
 
 #userOptions .select:hover::after {
-  color: #91aab4;
+  color: #587769;
 }
 
 #userOptions .fa-star {
-  color: #91aab4;
+  color: #587769;
   font-size: 18px;
 }
 
 #userOptions .fa-star:hover, #userOptions .fa-star.checked {
-  color: #193441;
+  color: #3C5148;
   cursor: pointer;
 }
 
@@ -187,11 +187,89 @@ h6 {
   border: 1px solid;
   border-radius: .25em;
   color: #fff;
-  background: #193441;
+  background: #3C5148;
   margin-top: 20px;
 }
 
 #userOptions .submit:hover {
-  background: #91aab4;
+  background: #587769;
+}
+
+#trailList {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+#trailList .card {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#trailList .card .card-img {
+  width: 50%;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+@media only screen and (max-width: 1280px) {
+  #trailList .hero h2 {
+    font-size: 26px;
+  }
+  #trailList .hero article {
+    width: 33%;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  #trailList .hero article {
+    width: 45%;
+    right: 5%;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  #trailList .hero {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  #trailList .hero h1 {
+    width: 100%;
+    font-size: 52px;
+    padding: 5%;
+  }
+  #trailList .hero h2 {
+    background: #3C5148;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 24px;
+  }
+  #trailList .hero article {
+    width: 90%;
+    right: 5%;
+    left: 5%;
+  }
 }
 /*# sourceMappingURL=trailTails.css.map */

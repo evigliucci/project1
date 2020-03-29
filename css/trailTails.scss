@@ -1,167 +1,225 @@
-$blue-darker:#193441;
-$blue-dark:#3e606f;
-$blue-medium:#91aab4;
-$blue-light:#cbdbd7;
-$blue-lighter:#cbedf5;
-body {
-    font-family: 'Roboto', sans-serif;
-    color: $blue-darker;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.hero {
-    background: url('../assets/images/dog-hiking.jpg');
-    background-size: cover;
-    padding: 24px;
-    height: 100vh;
-    position: relative;
-    h1 {
-        width: 66%;
-        color: #fff;
-        font-size: 84px;
+    $color-darker:#3C5148;
+    $color-dark:#4F6B5E;
+    $color-medium:#587769;
+    $color-light:#88B7A2;
+    $color-lighter:#B7F7DA;
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: $color-darker;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+    
+    .hero {
+        background: url('../assets/images/dog-1.jpg');
+        background-size: cover;
         padding: 24px;
-    }
-    h2 {
-        font-size: 32px;
-        margin-bottom: 24px;
-        font-weight: 500;
-        color: #fff;
-    }
-    article {
-        width: 33%;
-        position: absolute;
-        right: 100px;
-        top: 25%;
-    }
-    .hero-form {
-        background: #fff;
-        padding: 24px;
-    }
-}
-
-#userOptions {
-    fieldset {
-        padding: 0 0 5px;
-    }
-    label {
-        display: block;
-        margin: .5rem 0 0;
-    }
-    .geo-locate {
-        color: #000;
-        text-decoration: underline;
-        &:hover {
-            color: $blue-medium;
+        height: 100vh;
+        position: relative;
+        h1 {
+            width: 66%;
+            color: #fff;
+            font-size: 84px;
+            padding: 24px;
         }
-        i {
-            padding-right: 10px;
+        h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            font-weight: 500;
+            color: #fff;
+        }
+        article {
+            width: 33%;
+            position: absolute;
+            right: 100px;
+            bottom: 10%;
+        }
+        .hero-form {
+            background: #fff;
+            padding: 24px;
         }
     }
-    .location {
-        padding: 10px;
-        width: 100%;
-        border-radius: .25em;
-        border: 1px solid;
-        height: 3em;
-    }
-    .form-wrap {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
+    
+    #userOptions {
         fieldset {
-            width: 48%;
-            &:first-child,
-            &:nth-child(3) {
-                margin-right: 4%;
+            padding: 0 0 5px;
+        }
+        label {
+            display: block;
+            margin: .5rem 0 0;
+        }
+        .geo-locate {
+            color: #000;
+            text-decoration: underline;
+            &:hover {
+                color: $color-medium;
             }
-            &:nth-child(3) {
-                margin-top: 20px;
-                label {
-                    margin: 0;
+            i {
+                padding-right: 10px;
+            }
+        }
+        .location {
+            padding: 10px;
+            width: 100%;
+            border-radius: .25em;
+            border: 1px solid;
+            height: 3em;
+        }
+        .form-wrap {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            fieldset {
+                width: 48%;
+                &:first-child,
+                &:nth-child(3) {
+                    margin-right: 4%;
+                }
+                &:nth-child(3) {
+                    margin-top: 20px;
+                    label {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+        /* Reset Select */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            outline: 0;
+            box-shadow: none;
+            border: 0 !important;
+            background: #fff;
+            background-image: none;
+        }
+        /* Custom Select */
+        .select {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 3em;
+            line-height: 3;
+            background: #fff;
+            border: 1px solid $color-darker;
+            overflow: hidden;
+            border-radius: .25em;
+        }
+        select {
+            flex: 1;
+            padding: 0 .5em;
+            color: $color-darker;
+            cursor: pointer;
+        }
+        /* Arrow */
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 1em;
+            background: none;
+            color: $color-darker;
+            border-left: 1px solid $color-darker;
+            cursor: pointer;
+            pointer-events: none;
+            -webkit-transition: .25s all ease;
+            -o-transition: .25s all ease;
+            transition: .25s all ease;
+        }
+        /* Transition */
+        .select:hover::after {
+            color: $color-medium;
+        }
+        .fa-star {
+            color: $color-medium;
+            font-size: 18px;
+            &:hover,
+            &.checked {
+                color: $color-darker;
+                cursor: pointer;
+            }
+        }
+        .submit {
+            -webkit-appearance: none;
+            width: 100%;
+            min-height: 3em;
+            border: 1px solid;
+            border-radius: .25em;
+            color: #fff;
+            background: $color-darker;
+            margin-top: 20px;
+            &:hover {
+                background: $color-medium;
+            }
+        }
+    }
+    
+    #trailList {
+        flex-flow: row;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        .card {
+            flex-basis: 50%;
+            display: flex;
+            flex-direction: row;
+            .card-img {
+                width: 50%;
+                order: 2;
+            }
+        }
+        @media only screen and (max-width: 1280px) {
+            .hero {
+                h2 {
+                    font-size: 26px;
+                }
+                article {
+                    width: 33%;
+                }
+            }
+        }
+        @media only screen and (max-width: 1100px) {
+            .hero {
+                article {
+                    width: 45%;
+                    right: 5%;
+                }
+            }
+        }
+        @media only screen and (max-width: 860px) {
+            .hero {
+                background-size: contain;
+                background-repeat: no-repeat;
+                h1 {
+                    width: 100%;
+                    font-size: 52px;
+                    padding: 5%;
+                }
+                h2 {
+                    background: $color-darker;
+                    font-size: 18px;
+                    line-height: 1.5;
+                    padding: 24px;
+                }
+                article {
+                    width: 90%;
+                    right: 5%;
+                    left: 5%;
                 }
             }
         }
     }
-    /* Reset Select */
-    select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        outline: 0;
-        box-shadow: none;
-        border: 0 !important;
-        background: #fff;
-        background-image: none;
-    }
-    /* Custom Select */
-    .select {
-        position: relative;
-        display: flex;
-        width: 100%;
-        height: 3em;
-        line-height: 3;
-        background: #fff;
-        border: 1px solid $blue-darker;
-        overflow: hidden;
-        border-radius: .25em;
-    }
-    select {
-        flex: 1;
-        padding: 0 .5em;
-        color: $blue-darker;
-        cursor: pointer;
-    }
-    /* Arrow */
-    .select::after {
-        content: '\25BC';
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0 1em;
-        background: none;
-        color: $blue-darker;
-        border-left: 1px solid $blue-darker;
-        cursor: pointer;
-        pointer-events: none;
-        -webkit-transition: .25s all ease;
-        -o-transition: .25s all ease;
-        transition: .25s all ease;
-    }
-    /* Transition */
-    .select:hover::after {
-        color: $blue-medium;
-    }
-    .fa-star {
-        color: $blue-medium;
-        font-size: 18px;
-        &:hover,
-        &.checked {
-            color: $blue-darker;
-            cursor: pointer;
-        }
-    }
-    .submit {
-        -webkit-appearance: none;
-        width: 100%;
-        min-height: 3em;
-        border: 1px solid;
-        border-radius: .25em;
-        color: #fff;
-        background: $blue-darker;
-        margin-top: 20px;
-        &:hover {
-            background: $blue-medium;
-        }
-    }
-}
