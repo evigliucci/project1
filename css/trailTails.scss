@@ -173,13 +173,25 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: stretch;
+        width: 80%;
+        margin: 0 auto;
         .card {
-            flex-basis: 50%;
+            flex-basis: 48%;
             display: flex;
             flex-direction: row;
+            margin: 1%;
+            border-color: $color-light;
             .card-img {
                 width: 50%;
                 order: 2;
+                background-size: cover;
+            }
+            .card-title {
+                margin-bottom: .75rem;
+                font-size: 20px;
+                line-height: 1.3;
+                font-weight: 700;
+                color: $color-dark;
             }
         }
     }

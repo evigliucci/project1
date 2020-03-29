@@ -51,7 +51,7 @@ $(document).ready(function() {
         var card = $("<div class='card'>");
         var cardBody = $("<div class='card-body'>");
         var title = $("<h3 class='card-title'>").text(response.trails[i].name);
-        var summary = $("<p class='card-text'>").text(response.trails[i].summary);
+        // var summary = $("<p class='card-text'>").text(response.trails[i].summary);
         var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
         var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
         var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
@@ -59,7 +59,7 @@ $(document).ready(function() {
         var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
 
         // merge and add to page
-        cardBody.append(title, summary, stars, trailLength, condition);
+        cardBody.append(title, trailLength, stars, condition);
         card.append(img, cardBody);
         $("#trailList").append(card);
     }
