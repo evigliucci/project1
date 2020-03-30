@@ -1,5 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     //set lat & long by pulling from document and setting our API key with queryurl 
+    //need to update lat and long to trailhead location
     var lat = localStorage.getItem("lat");
     var long = localStorage.getItem("long");
     var weatherAPIKey = "2aefe10b8806f4469247d8807ad2c892";
@@ -39,7 +40,7 @@ $(document).ready(function() {
             url: hikeURL,
             method: "GET",
             dataType: "JSON",
-        }).then(function(response) {
+        }).then(function (response) {
             var i = 0;
 
             for (trail in response.trails) {
@@ -68,16 +69,37 @@ $(document).ready(function() {
     }
 
     //weather call data
+    $(".conditions").on("click", function () {
+        
+    
+        // clear input box
+        $("#search-value").val("");
+    
+        calllWeather();
+      });
     function calllWeather() {
         $.ajax({
             url: weatherURL,
             method: "GET",
-        }).then(function(response) {
-            //var city = response.name;
+        }).then(function (data) {
+            //create html content for current weather
+            var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ")");
+            var card = $("<div>").addClass("card");
+            var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+            var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
+            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
+            var cardBody = $("<div>").addClass("card-body");
+            var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+
+            //merge and add to page
+            title.append(img);
+            cardBody.append(title, temp, humid, wind);
+            card.append(cardBody);
+            $("#currentWeather").append(card);
         });
     }
 
-    $('.avgRating .fa-star').on('click', function() {
+    $('.avgRating .fa-star').on('click', function () {
         //remove class of checked
         $('.avgRating .fa-star').removeClass('checked');
         //add class of checked to item and previous sibling items 
@@ -87,12 +109,12 @@ $(document).ready(function() {
         hike.minStars = parseInt($(this).attr('value'));
     });
 
-    $(".geo-locate").on("click", function(event) {
+    $(".geo-locate").on("click", function (event) {
         event.preventDefault();
         getLocation()
     });
 
-    $(".submit").on("click", function(event) {
+    $(".submit").on("click", function (event) {
         event.preventDefault();
         choices();
         hikingTrails();
