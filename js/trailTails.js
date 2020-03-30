@@ -51,7 +51,6 @@ $(document).ready(function () {
     };
 
     function createTrailList(response, i) {
-        // create html content for current weather
         var card = $("<div class='card'>");
         var cardBody = $("<div class='card-body'>");
         var title = $("<h3 class='card-title'>").text(response.trails[i].name);
@@ -69,15 +68,8 @@ $(document).ready(function () {
         $("#trailList").append(card);
     }
 
+
     //weather call data
-    $(".stretched-link").on("click", function () {
-        
-    
-        // clear input box
-        $("#search-value").val("");
-    
-        calllWeather();
-      });
     function calllWeather() {
         $.ajax({
             url: weatherURL,
@@ -100,24 +92,40 @@ $(document).ready(function () {
         });
     }
 
+    //gets googlemaps lat and long from hike location
+    function gmapslatlong() {
+        var gmapslat = response.trails[i].latitude;
+        var gmapslong = response.trails[i].longitude;
+        
+    };
+
     $('.avgRating .fa-star').on('click', function () {
-        //remove class of checked
-        $('.avgRating .fa-star').removeClass('checked');
-        //add class of checked to item and previous sibling items 
-        $(this).addClass('checked');
-        $(this).prevAll().addClass('checked');
-        //get count value from index
-        hike.minStars = parseInt($(this).attr('value'));
-    });
+    //remove class of checked
+    $('.avgRating .fa-star').removeClass('checked');
+    //add class of checked to item and previous sibling items 
+    $(this).addClass('checked');
+    $(this).prevAll().addClass('checked');
+    //get count value from index
+    hike.minStars = parseInt($(this).attr('value'));
+});
 
-    $(".geo-locate").on("click", function (event) {
-        event.preventDefault();
-        getLocation()
-    });
+$(".geo-locate").on("click", function (event) {
+    event.preventDefault();
+    getLocation()
+});
 
-    $(".submit").on("click", function (event) {
-        event.preventDefault();
-        choices();
-        hikingTrails();
-    });
+$(".submit").on("click", function (event) {
+    event.preventDefault();
+    choices();
+    hikingTrails();
+});
+
+//click function on trail card
+$(".stretched-link").on("click", function () {
+    calllWeather();
+    gmapslatlong();
+});
+
+    
+
 });
