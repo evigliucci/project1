@@ -59,17 +59,18 @@ $(document).ready(function () {
         var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
         var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
         var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
+        var hikeBtn = $("<a href='#' class='btn btn-primary stretched-link'>Let's Hike</a>")
         var src = response.trails[i].imgMedium;
         var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
 
         // merge and add to page
-        cardBody.append(title, trailLength, stars, condition);
+        cardBody.append(title, trailLength, stars, condition, hikeBtn);
         card.append(img, cardBody);
         $("#trailList").append(card);
     }
 
     //weather call data
-    $(".conditions").on("click", function () {
+    $(".stretched-link").on("click", function () {
         
     
         // clear input box
