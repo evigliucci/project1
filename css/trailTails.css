@@ -44,6 +44,7 @@ h6 {
 
 .hero .hero-form {
   background: #fff;
+  border: 1px solid #88B7A2;
   padding: 24px;
 }
 
@@ -64,16 +65,18 @@ h6 {
 }
 
 #userOptions .geo-locate {
-  color: #000;
+  color: #3C5148;
   text-decoration: underline;
 }
 
 #userOptions .geo-locate:hover {
   color: #587769;
+  cursor: pointer;
 }
 
 #userOptions .geo-locate i {
   padding-right: 10px;
+  color: #3C5148;
 }
 
 #userOptions .location {
@@ -171,7 +174,7 @@ h6 {
 }
 
 #userOptions .fa-star {
-  color: #587769;
+  color: #88B7A2;
   font-size: 18px;
 }
 

@@ -26,7 +26,7 @@
     <section class="hero">
         <h1>Trail Tails</h1>
         <article>
-            <h2>Explore the most popular trails near you with trail selections that all allow <strong>Dogs!</strong> Get driving directions, current trail conditions and check weather conditions.</h2>
+            <h2>Explore the most popular trails near you and locate the ones that allow <strong>Dogs!</strong> Get driving directions, current trail conditions and check weather conditions.</h2>
             <div id="hero-form" class="hero-form">
                 <!-- contains header & jumbotron img -->
                 <!-- needs a form with 3 drop down boxes & a button -->
@@ -64,11 +64,13 @@
                         </fieldset>
                         <fieldset>
                             <!--Javascript function to check if clicked and save option-->
-                            <label for="avgRating">Average Rating:</label>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
+                            <label for="avgRating">Min. Average Rating:</label>
+                            <div class="avgRating">
+                                <span class="fa fa-star checked" value="1"></span>
+                                <span class="fa fa-star checked" value="2"></span>
+                                <span class="fa fa-star checked" value="3"></span>
+                                <span class="fa fa-star" value="4"></span>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <button type="submit" class="submit">Let's Go</button>
@@ -82,7 +84,7 @@
 
     <div id="trailList">
         <!-- this area should contain our appended trail info & trail img -->
-                
+
     </div>
     <div id="selectedTrail">
         <!-- this area should contain our appended selected trail -->

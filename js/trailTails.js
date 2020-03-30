@@ -5,11 +5,12 @@ $(document).ready(function() {
     var weatherAPIKey = "2aefe10b8806f4469247d8807ad2c892";
     var weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + weatherAPIKey;
 
-    var maxDistance = "";
-    var minLength = "";
-    var minStars = "";
-    var hikeAPIKey = "200712211-0e0047c0b205b2d2705a464dd36eccec";
-    var hikeURL = "https://www.hikingproject.com/data/get-trails?lat=" + lat + "&lon=" + long + "&minLength=" + minLength + "&maxDistance=" + maxDistance + "&minStars=" + minStars + "&key=" + hikeAPIKey;
+    var hike = {
+        maxDistance: 10,
+        minLength: 0,
+        minStars: parseInt($('.avgRating .checked').length),
+        apiKey: "200712211-0e0047c0b205b2d2705a464dd36eccec"
+    }
 
     //geolocation function
     function getLocation() {
@@ -26,12 +27,14 @@ $(document).ready(function() {
     };
 
     function choices() {
-        maxDistance = $("#radius").find("option:selected").val();
-        minLength = $("minTrailLength").find("option:selected").val();
+        hike.maxDistance = parseInt($("#radius").find("option:selected").val());
+        hike.minLength = parseInt($("#minTrailLength").find("option:selected").val());
     };
 
     // Hiking API
-    function hike() {
+    function hikingTrails() {
+        var hikeURL = "https://www.hikingproject.com/data/get-trails?lat=" + lat + "&lon=" + long + "&minLength=" + hike.minLength + "&maxDistance=" + hike.maxDistance + "&minStars=" + hike.minStars + "&key=" + hike.apiKey;
+
         $.ajax({
             url: hikeURL,
             method: "GET",
@@ -70,10 +73,19 @@ $(document).ready(function() {
             url: weatherURL,
             method: "GET",
         }).then(function(response) {
-            var city = response.name;
+            //var city = response.name;
         });
     }
 
+    $('.avgRating .fa-star').on('click', function() {
+        //remove class of checked
+        $('.avgRating .fa-star').removeClass('checked');
+        //add class of checked to item and previous sibling items 
+        $(this).addClass('checked');
+        $(this).prevAll().addClass('checked');
+        //get count value from index
+        hike.minStars = parseInt($(this).attr('value'));
+    });
 
     $(".geo-locate").on("click", function(event) {
         event.preventDefault();
@@ -83,7 +95,6 @@ $(document).ready(function() {
     $(".submit").on("click", function(event) {
         event.preventDefault();
         choices();
-        hike();
+        hikingTrails();
     });
-
 });

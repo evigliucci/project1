@@ -44,6 +44,7 @@
         }
         .hero-form {
             background: #fff;
+            border: 1px solid $color-light;
             padding: 24px;
         }
     }
@@ -57,13 +58,15 @@
             margin: .5rem 0 0;
         }
         .geo-locate {
-            color: #000;
+            color: $color-darker;
             text-decoration: underline;
             &:hover {
                 color: $color-medium;
+                cursor: pointer;
             }
             i {
                 padding-right: 10px;
+                color: $color-darker;
             }
         }
         .location {
@@ -143,7 +146,7 @@
             color: $color-medium;
         }
         .fa-star {
-            color: $color-medium;
+            color: $color-light;
             font-size: 18px;
             &:hover,
             &.checked {
