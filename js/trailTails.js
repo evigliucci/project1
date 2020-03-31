@@ -3,7 +3,7 @@ $(document).ready(function () {
     //need to update lat and long to trailhead location
     var lat = localStorage.getItem("lat");
     var long = localStorage.getItem("long");
-    var weatherAPIKey = "2aefe10b8806f4469247d8807ad2c892";
+    var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
     var weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + weatherAPIKey;
 
     var hike = {
@@ -22,10 +22,43 @@ $(document).ready(function () {
         }
     }
 
+
     function showPosition(position) {
         localStorage.setItem("lat", position.coords.latitude);
         localStorage.setItem("long", position.coords.longitude);
+        console.log(lat);
+        console.log(long);
+
     };
+       //set lat & long by pulling from document and setting our API key with queryurl 
+    
+
+    function geocodeAddress() {
+        var address = $('.location').val();
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/geocode/json",
+            data: {
+                APIKey: "AIzaSyCFbGw-yMReKXMfEdpVPRpfcmzHiASxtso",
+                sensor: false,
+                address: address
+            },
+            dataType: "JSON",
+        }).then(function (response) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results[0].geometry.location.lat());
+                    console.log(results[0].geometry.location.lng());
+                    localStorage.setItem("lat", results[0].geometry.location.lat());
+                    localStorage.setItem("long", results[0].geometry.location.lng());
+
+                };
+            });
+        });
+    };
+
+
+
 
     function choices() {
         hike.maxDistance = parseInt($("#radius").find("option:selected").val());
@@ -68,10 +101,23 @@ $(document).ready(function () {
         card.append(img, cardBody);
         $("#trailList").append(card);
     }
+    //Displays city in input field
+    function showCity() {
 
+        var cityAPIKey = "bdc52f64afd883566cab72d748eec127";
+        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + weatherAPIKey;
+
+        $.ajax({
+            url: openWeatherURL,
+            method: "GET",
+        }).then(function (response) {
+            var city = response.name;
+            $(".location").val(city);
+        });
+    };
 
     //weather call data
-    function calllWeather() {
+    function callWeather() {
         $.ajax({
             url: weatherURL,
             method: "GET",
@@ -109,21 +155,25 @@ $(document).ready(function () {
     //get count value from index
     hike.minStars = parseInt($(this).attr('value'));
 });
-
+//Geo-locate button
 $(".geo-locate").on("click", function (event) {
     event.preventDefault();
-    getLocation()
+    getLocation();
+    showCity();
 });
 
+//
 $(".submit").on("click", function (event) {
     event.preventDefault();
+    geocodeAddress();
     choices();
     hikingTrails();
+    
 });
 
 //click function on trail card
-$(".stretched-link").on("click", function () {
-    calllWeather();
+$(".stretched-link").on("click", function (){
+    callWeather();
     gmapslatlong();
 });
 
