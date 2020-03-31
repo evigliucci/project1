@@ -61,6 +61,7 @@ $(document).ready(function () {
         var hikeBtn = $("<a href='#' class='btn btn-primary stretched-link'>Let's Hike</a>")
         var src = response.trails[i].imgMedium;
         var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
+        var viewTrailBtn = ("<button>View Trail</button>");
 
         // merge and add to page
         cardBody.append(title, trailLength, stars, condition, hikeBtn);
