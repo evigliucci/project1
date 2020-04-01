@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     //set lat & long by pulling from document and setting our API key with queryurl 
     //need to update lat and long to trailhead location
     var lat = localStorage.getItem("lat");
@@ -26,8 +26,8 @@ $(document).ready(function () {
     function showPosition(position) {
         localStorage.setItem("lat", position.coords.latitude);
         localStorage.setItem("long", position.coords.longitude);
-        console.log(lat);
-        console.log(long);
+        //console.log(lat);
+        //console.log(long);
 
     };
     //set lat & long by pulling from document and setting our API key with queryurl 
@@ -77,7 +77,7 @@ $(document).ready(function () {
             url: hikeURL,
             method: "GET",
             dataType: "JSON",
-        }).then(function (response) {
+        }).then(function(response) {
             var i = 0;
 
             for (trail in response.trails) {
@@ -95,9 +95,9 @@ $(document).ready(function () {
         var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
         var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
         var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
-        var hikeBtn = $("<a href='#' class='btn btn-primary stretched-link'>View Trail</a>");
+        var hikeBtn = $("<button class='btn btn-primary stretched-link'>View Trail</button>");
         var trailId = $("<p class=" + response.trails[i].id + ">");
-        console.log(trailId)
+        //console.log(trailId)
         var src = response.trails[i].imgMedium;
         var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
 
@@ -115,7 +115,7 @@ $(document).ready(function () {
         $.ajax({
             url: openWeatherURL,
             method: "GET",
-        }).then(function (response) {
+        }).then(function(response) {
             var city = response.name;
             $(".location").val(city);
         });
@@ -131,8 +131,8 @@ $(document).ready(function () {
             url: forecastURL,
             method: "GET",
             dataType: "JSON",
-        }).then(function (data) {
-            console.log(forecastURL);
+        }).then(function(data) {
+            //console.log(forecastURL);
             //create html content for current weather
             var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ")");
             var card = $("<div>").addClass("card");
@@ -150,6 +150,34 @@ $(document).ready(function () {
         });
     }
 
+    function getSingleTrail(currentId) {
+        var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
+
+        $.ajax({
+            url: trailIdURL,
+            method: "GET",
+            dataType: "JSON",
+        }).then(function(trailResponse) {
+            //Build UI content
+            $('#selectedTrail').append(JSON.stringify(trailResponse));
+
+            var trailCard = $("<div class='card'>");
+            var trailCardBody = $("<div class='card-body'>");
+            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails.name);
+            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails.summary);
+            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails.length + " miles");
+            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails.conditionStatus);
+            var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails.difficulty);
+
+            var trailSrc = trailResponse.trails.imgMedium;
+            var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
+
+            // merge and add to page
+            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDifficulty);
+            trailCard.append(trailImg, trailCardBody);
+            $("#selectedTrail").append(trailCard);
+        });
+    }
     //gets googlemaps lat and long from hike location
     // function gmapslatlong() {
     //     var gmapslat = response.trails[i].latitude;
@@ -157,7 +185,7 @@ $(document).ready(function () {
 
     // };
 
-    $('.avgRating .fa-star').on('click', function () {
+    $('.avgRating .fa-star').on('click', function() {
         //remove class of checked
         $('.avgRating .fa-star').removeClass('checked');
         //add class of checked to item and previous sibling items 
@@ -167,14 +195,14 @@ $(document).ready(function () {
         hike.minStars = parseInt($(this).attr('value'));
     });
     //Geo-locate button
-    $(".geo-locate").on("click", function (event) {
+    $(".geo-locate").on("click", function(event) {
         event.preventDefault();
         getLocation();
         showCity();
     });
 
     //
-    $(".submit").on("click", function (event) {
+    $(".submit").on("click", function(event) {
         event.preventDefault();
         // geocodeAddress();
         choices();
@@ -183,13 +211,11 @@ $(document).ready(function () {
     });
 
     //click function on trail card
-    $(".stretched-link").addEventListener("click", function (event) {
-        event.preventDefault();
-        callWeather();
-        console.log(this);
-        gmapslatlong();
+    $(document).on("click", '.stretched-link', function(event) {
+        event.preventDefault(event);
+        var currentId = $(this).next().attr('class');
+        getSingleTrail(currentId);
+        //callWeather();
+        //gmapslatlong();
     });
-
-
-
 });
