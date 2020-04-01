@@ -30,32 +30,36 @@ $(document).ready(function () {
         console.log(long);
 
     };
-       //set lat & long by pulling from document and setting our API key with queryurl 
-    
+    //set lat & long by pulling from document and setting our API key with queryurl 
 
-    function geocodeAddress() {
-        var address = $('.location').val();
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/geocode/json",
-            data: {
-                APIKey: "AIzaSyCFbGw-yMReKXMfEdpVPRpfcmzHiASxtso",
-                sensor: false,
-                address: address
-            },
-            dataType: "JSON",
-        }).then(function (response) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': address }, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    console.log(results[0].geometry.location.lat());
-                    console.log(results[0].geometry.location.lng());
-                    localStorage.setItem("lat", results[0].geometry.location.lat());
-                    localStorage.setItem("long", results[0].geometry.location.lng());
 
-                };
-            });
-        });
-    };
+    // function geocodeAddress() {
+    //     var address = $('.location').val();
+    //     //delete lat and long values from local storage with a clear
+    //     localStorage.clear();
+    //     $.ajax({
+    //         url: "https://maps.googleapis.com/maps/api/geocode/json",
+    //         data: {
+    //             APIKey: "AIzaSyCFbGw-yMReKXMfEdpVPRpfcmzHiASxtso",
+    //             sensor: false,
+    //             address: address
+    //         },
+    //         dataType: "JSON",
+    //     }).then(function (response) {
+    //         var geocoder = new google.maps.Geocoder();
+    //         geocoder.geocode({ 'address': address }, function (results, status) {
+    //             if (status == google.maps.GeocoderStatus.OK) {
+    //                 console.log(results[0].geometry.location.lat());
+    //                 console.log(results[0].geometry.location.lng());
+    //                 localStorage.setItem("lat", results[0].geometry.location.lat());
+    //                 localStorage.setItem("long", results[0].geometry.location.lng());
+    //                 console.log(lat);
+    //                 console.log(long);
+
+    //             };
+    //         });
+    //     });
+    // };
 
 
 
@@ -91,13 +95,14 @@ $(document).ready(function () {
         var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
         var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
         var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
-        var hikeBtn = $("<a href='#' class='btn btn-primary stretched-link'>Let's Hike</a>")
+        var hikeBtn = $("<a href='#' class='btn btn-primary stretched-link'>View Trail</a>");
+        var trailId = $("<p class=" + response.trails[i].id + ">");
+        console.log(trailId)
         var src = response.trails[i].imgMedium;
         var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
-        var viewTrailBtn = ("<button>View Trail</button>");
 
         // merge and add to page
-        cardBody.append(title, trailLength, stars, condition, hikeBtn);
+        cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);
         card.append(img, cardBody);
         $("#trailList").append(card);
     }
@@ -105,7 +110,7 @@ $(document).ready(function () {
     function showCity() {
 
         var cityAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + weatherAPIKey;
+        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + cityAPIKey;
 
         $.ajax({
             url: openWeatherURL,
@@ -118,10 +123,16 @@ $(document).ready(function () {
 
     //weather call data
     function callWeather() {
+        var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
+        var forecastURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
+        var traillat = "";
+        var traillong = "";
         $.ajax({
-            url: weatherURL,
+            url: forecastURL,
             method: "GET",
+            dataType: "JSON",
         }).then(function (data) {
+            console.log(forecastURL);
             //create html content for current weather
             var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ")");
             var card = $("<div>").addClass("card");
@@ -140,43 +151,45 @@ $(document).ready(function () {
     }
 
     //gets googlemaps lat and long from hike location
-    function gmapslatlong() {
-        var gmapslat = response.trails[i].latitude;
-        var gmapslong = response.trails[i].longitude;
-        
-    };
+    // function gmapslatlong() {
+    //     var gmapslat = response.trails[i].latitude;
+    //     var gmapslong = response.trails[i].longitude;
+
+    // };
 
     $('.avgRating .fa-star').on('click', function () {
-    //remove class of checked
-    $('.avgRating .fa-star').removeClass('checked');
-    //add class of checked to item and previous sibling items 
-    $(this).addClass('checked');
-    $(this).prevAll().addClass('checked');
-    //get count value from index
-    hike.minStars = parseInt($(this).attr('value'));
-});
-//Geo-locate button
-$(".geo-locate").on("click", function (event) {
-    event.preventDefault();
-    getLocation();
-    showCity();
-});
+        //remove class of checked
+        $('.avgRating .fa-star').removeClass('checked');
+        //add class of checked to item and previous sibling items 
+        $(this).addClass('checked');
+        $(this).prevAll().addClass('checked');
+        //get count value from index
+        hike.minStars = parseInt($(this).attr('value'));
+    });
+    //Geo-locate button
+    $(".geo-locate").on("click", function (event) {
+        event.preventDefault();
+        getLocation();
+        showCity();
+    });
 
-//
-$(".submit").on("click", function (event) {
-    event.preventDefault();
-    geocodeAddress();
-    choices();
-    hikingTrails();
-    
-});
+    //
+    $(".submit").on("click", function (event) {
+        event.preventDefault();
+        // geocodeAddress();
+        choices();
+        hikingTrails();
 
-//click function on trail card
-$(".stretched-link").on("click", function (){
-    callWeather();
-    gmapslatlong();
-});
+    });
 
-    
+    //click function on trail card
+    $(".stretched-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        callWeather();
+        console.log(this);
+        gmapslatlong();
+    });
+
+
 
 });
