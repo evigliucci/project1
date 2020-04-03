@@ -185,13 +185,6 @@ $(document).ready(function () {
         });
     }
 
-    //gets googlemaps lat and long from hike location
-    // function gmapslatlong() {
-    //     var gmapslat = response.trails[i].latitude;
-    //     var gmapslong = response.trails[i].longitude;
-
-    // };
-
     $('.avgRating .fa-star').on('click', function () {
         //remove class of checked
         $('.avgRating .fa-star').removeClass('checked');
