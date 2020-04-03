@@ -33,7 +33,7 @@ $(document).ready(function () {
         locationLat = localStorage.getItem("locationLat");
         locationLong = localStorage.getItem("locationLong");
         var cityAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + locationLat + "&lon=" + locationLong + "&appid=" + cityAPIKey;
+        var openWeatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + locationLat + "&lon=" + locationLong + "&appid=" + cityAPIKey;
 
         $.ajax({
             url: openWeatherURL,
@@ -157,7 +157,7 @@ $(document).ready(function () {
     //weather call data
     function callWeather(traillat, traillong) {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var forecastURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
+        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
 
         $.ajax({
             url: forecastURL,
