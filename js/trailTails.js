@@ -55,7 +55,8 @@ $(document).ready(function () {
                 localStorage.setItem("searchLong", results[0].geometry.location.lng());
             };
         });
-        setTimeout(function () { choices(); }, 3000);
+        setTimeout(function () { choices(); }, 0);
+        //if code doesn't work you can set timeout to 0 (if you have that fast internet)
     };
 
     function choices() {
@@ -81,6 +82,7 @@ $(document).ready(function () {
         }).then(function (response) {
             var i = 0;
 
+            $("#trailList").empty();
             for (trail in response.trails) {
                 i++;
                 createTrailList(response, i);
@@ -106,11 +108,15 @@ $(document).ready(function () {
         cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);
         card.append(img, cardBody);
         $("#trailList").append(card);
+        $('html, body').animate({
+            scrollTop: ($('#trailList').offset().top)
+        }, 500);
     }
 
 
     //create single trail card
     function getSingleTrail(currentId) {
+        
         var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
 
         $.ajax({
@@ -118,6 +124,7 @@ $(document).ready(function () {
             method: "GET",
             dataType: "JSON",
         }).then(function (trailResponse) {
+            $("#selectedTrail").empty().show();
             console.log(trailResponse);
             //Build UI content
             var trailCard = $("<div class='card'>");
@@ -138,10 +145,15 @@ $(document).ready(function () {
 
             trailCard.append(trailImg, trailCardBody);
             $("#selectedTrail").append(trailCard);
-           callWeather(traillat, traillong); 
+            $('html, body').animate({
+                scrollTop: ($('#selectedTrail').offset().top)
+            }, 500);
+            callWeather(traillat, traillong);
+            
         });
+        
     }
-   
+
     //weather call data
     function callWeather(traillat, traillong) {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
@@ -152,8 +164,10 @@ $(document).ready(function () {
             method: "GET",
             dataType: "JSON",
         }).then(function (data) {
+            $("#currentWeather").empty();
             console.log(data);
             //create html content for current weather
+            var title = $("<h3 class='card-title'>").text("Current Weather");
             var card = $("<div>").addClass("card");
             var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
             var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
@@ -162,10 +176,10 @@ $(document).ready(function () {
             var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °K");
             var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °K");
             var cardBody = $("<div>").addClass("card-body");
-            
+
 
             //merge and add to page
-            cardBody.append(description, temp, mintemp, maxtemp, humid, wind);
+            cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
             card.append(cardBody);
             $("#currentWeather").append(card);
         });
@@ -191,13 +205,15 @@ $(document).ready(function () {
     $(".geo-locate").on("click", function (event) {
         event.preventDefault();
         getLocation();
-        setTimeout(function () { showCity(); }, 3000);
+        //again you can adjust the timeout if the page isn't loading correctly
+        setTimeout(function () { showCity(); }, 0);
     });
 
     //
     $(".submit").on("click", function (event) {
         event.preventDefault();
         geocodeAddress();
+        
 
     });
 
@@ -206,6 +222,6 @@ $(document).ready(function () {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
         getSingleTrail(currentId);
-        //gmapslatlong();
+        
     });
 });
