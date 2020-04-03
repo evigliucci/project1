@@ -55,8 +55,8 @@ $(document).ready(function () {
                 localStorage.setItem("searchLong", results[0].geometry.location.lng());
             };
         });
-        setTimeout(function () { choices(); }, 0);
-        //if code doesn't work you can set timeout to 0 (if you have that fast internet)
+        setTimeout(function () { choices(); }, 500);
+        //you can adjust the timeout if the page isn't loading correctly
     };
 
     function choices() {
@@ -206,7 +206,7 @@ $(document).ready(function () {
         event.preventDefault();
         getLocation();
         //again you can adjust the timeout if the page isn't loading correctly
-        setTimeout(function () { showCity(); }, 0);
+        setTimeout(function () { showCity(); }, 500);
     });
 
     //
