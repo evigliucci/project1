@@ -138,6 +138,7 @@ $(document).ready(function() {
         });
     }
 
+    //create single trail card
     function getSingleTrail(currentId) {
         var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
 
@@ -146,26 +147,28 @@ $(document).ready(function() {
             method: "GET",
             dataType: "JSON",
         }).then(function(trailResponse) {
+            console.log(trailResponse);
             //Build UI content
-            $('#selectedTrail').append(JSON.stringify(trailResponse));
-
             var trailCard = $("<div class='card'>");
             var trailCardBody = $("<div class='card-body'>");
-            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails.name);
-            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails.summary);
-            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails.length + " miles");
-            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails.conditionStatus);
-            var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails.difficulty);
+            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails[0].name);
+            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
+            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
+            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
+            //var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails[0].difficulty);
+            var trailDetails = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
 
-            var trailSrc = trailResponse.trails.imgMedium;
+            var trailSrc = trailResponse.trails[0].imgMedium;
             var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
 
             // merge and add to page
-            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDifficulty);
+            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDetails);
+            
             trailCard.append(trailImg, trailCardBody);
             $("#selectedTrail").append(trailCard);
         });
     }
+
     //gets googlemaps lat and long from hike location
     // function gmapslatlong() {
     //     var gmapslat = response.trails[i].latitude;
