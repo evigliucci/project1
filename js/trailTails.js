@@ -1,10 +1,10 @@
 $(document).ready(function() {
     //set lat & long by pulling from document and setting our API key with queryurl 
     //need to update lat and long to trailhead location
-    var lat = localStorage.getItem("lat");
-    var long = localStorage.getItem("long");
-    var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-    var weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + weatherAPIKey;
+    var locationLat = "";
+    var locationLong = "";
+    var searchLat = "";
+    var searchLong = "";
 
     var hike = {
         maxDistance: 10,
@@ -21,57 +21,58 @@ $(document).ready(function() {
             demo.innerHTML = "Geolocation is not supported by this browser.";
         }
     }
-
-
+    
     function showPosition(position) {
-        localStorage.setItem("lat", position.coords.latitude);
-        localStorage.setItem("long", position.coords.longitude);
-        //console.log(lat);
-        //console.log(long);
+        localStorage.setItem("locationLat", position.coords.latitude);
+        localStorage.setItem("locationLong", position.coords.longitude);
 
+    };
+
+    //Displays city in input field
+    function showCity() {
+        locationLat = localStorage.getItem("locationLat");
+        locationLong = localStorage.getItem("locationLong");
+        var cityAPIKey = "bdc52f64afd883566cab72d748eec127";
+        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + locationLat + "&lon=" + locationLong + "&appid=" + cityAPIKey;
+
+        $.ajax({
+            url: openWeatherURL,
+            method: "GET",
+        }).then(function (response) {
+            var city = response.name;
+            $(".location").val(city);
+        });
     };
     //set lat & long by pulling from document and setting our API key with queryurl 
 
 
-    // function geocodeAddress() {
-    //     var address = $('.location').val();
-    //     //delete lat and long values from local storage with a clear
-    //     localStorage.clear();
-    //     $.ajax({
-    //         url: "https://maps.googleapis.com/maps/api/geocode/json",
-    //         data: {
-    //             APIKey: "AIzaSyCFbGw-yMReKXMfEdpVPRpfcmzHiASxtso",
-    //             sensor: false,
-    //             address: address
-    //         },
-    //         dataType: "JSON",
-    //     }).then(function (response) {
-    //         var geocoder = new google.maps.Geocoder();
-    //         geocoder.geocode({ 'address': address }, function (results, status) {
-    //             if (status == google.maps.GeocoderStatus.OK) {
-    //                 console.log(results[0].geometry.location.lat());
-    //                 console.log(results[0].geometry.location.lng());
-    //                 localStorage.setItem("lat", results[0].geometry.location.lat());
-    //                 localStorage.setItem("long", results[0].geometry.location.lng());
-    //                 console.log(lat);
-    //                 console.log(long);
-
-    //             };
-    //         });
-    //     });
-    // };
-
-
-
+    function geocodeAddress() {
+        var geocoder = new google.maps.Geocoder();
+        var address = $('.location').val();
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {  
+                localStorage.setItem("searchLat", results[0].geometry.location.lat());
+                localStorage.setItem("searchLong", results[0].geometry.location.lng());
+            };            
+        });
+        setTimeout(function(){ choices(); }, 3000);
+    };
 
     function choices() {
         hike.maxDistance = parseInt($("#radius").find("option:selected").val());
         hike.minLength = parseInt($("#minTrailLength").find("option:selected").val());
+        hikingTrails();
+        
     };
 
     // Hiking API
     function hikingTrails() {
-        var hikeURL = "https://www.hikingproject.com/data/get-trails?lat=" + lat + "&lon=" + long + "&minLength=" + hike.minLength + "&maxDistance=" + hike.maxDistance + "&minStars=" + hike.minStars + "&key=" + hike.apiKey;
+        searchLat = localStorage.getItem("searchLat");
+        searchLong = localStorage.getItem("searchLong");
+        console.log("searchLat", searchLat);
+        console.log("searchLat", searchLong);
+
+        var hikeURL = "https://www.hikingproject.com/data/get-trails?lat=" + searchLat + "&lon=" + searchLong + "&minLength=" + hike.minLength + "&maxDistance=" + hike.maxDistance + "&minStars=" + hike.minStars + "&key=" + hike.apiKey;
 
         $.ajax({
             url: hikeURL,
@@ -106,21 +107,8 @@ $(document).ready(function() {
         card.append(img, cardBody);
         $("#trailList").append(card);
     }
-    //Displays city in input field
-    function showCity() {
-
-        var cityAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var openWeatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=" + cityAPIKey;
-
-        $.ajax({
-            url: openWeatherURL,
-            method: "GET",
-        }).then(function(response) {
-            var city = response.name;
-            $(".location").val(city);
-        });
-    };
-
+    
+    
     //weather call data
     function callWeather() {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
@@ -198,16 +186,14 @@ $(document).ready(function() {
     $(".geo-locate").on("click", function(event) {
         event.preventDefault();
         getLocation();
-        showCity();
+        setTimeout(function(){showCity(); }, 3000);
     });
 
     //
     $(".submit").on("click", function(event) {
         event.preventDefault();
-        // geocodeAddress();
-        choices();
-        hikingTrails();
-
+        geocodeAddress();
+        
     });
 
     //click function on trail card
